@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programowanie w Pythonie + biblioteka Selenium</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+</head>
+<body>
+    <div class="container" id="main-container">
+        <div class="tut-section card card-body bg-light">
+            <h1>Założenia</h1>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p>Aby zrozumieć ten poradnik, trzeba znać:</p>
+            <ul>
+                <li>Podstawy C (lub dowolnego innego języka programowania)</li>
+                <li>Podstawy HTML i CSS (Selenium opiera się na wyszukiwaniu w kodzie strony elementów HTML, więc ciężko napisać skrypt Selenium bez znajomości chociażby podstaw tych języków)</li>
+            </ul>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <h1>Część 1 - Instalacja środowiska</h1>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p>Do zrobienia całego zadania polecam sobie zainstalować IDE PyCharm. Wersja Community jest za darmo (nawet bez licencji studenckiej). </p>
+            <p>Wiadomo, na upartego skrypty można pisać i w Notatniku, ale PyCharm ma według mnie najlepsze podpowiadanie składni, a ono może się bardzo przydać.</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p>W PyCharmie tworzymy nowy projekt "Pure Python" (czysty Python).</p>
+            <p>Powinien się pokazać domyślny skrypt, jak na obrazku poniżej.</p>
+            <a href="img/scr-1.png" class="light-link">
+                <img src="img/scr-1.png" class="img img-fluid"/>
+            </a>
+            <p>Odpalamy go zielonym trójkącikiem w prawym górnym roku programu, lub skrótem klawiszowym Shift+F10.</p>
+            <p>Jeśli w konsoli na dole programu pokaże się "Hello, PyCharm", to znaczy że wszystko działa dobrze.</p>
+            <p>Kasujemy wszystkie 17 linijek i zostawiamy pusty projekt.</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <h1>Część 2 - Absolutne podstawy programowania w Pythonie</h1>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p>Żeby używać Selenium, przydałoby się znać chociaż absolutne podstawy Pythona.</p>
+            <p>Znając C, nauczenie się kilku podstawowych instrukcji Pythona nie powinno zająć dłużej, niż kilka minut.</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Wyświetlanie tekstu w konsoli:</strong></p>
+            <p>Tak wygląda skrypt Pythona, który wyświetla tekst w konsoli:</p>
+            <pre><code>
+                print("To jest tekst w konsoli")
+            </code></pre>
+            <p>I to wszystko, starczy jedna linijka kodu, aby mieć działający skrypt, który coś robi.</p>
+            <p>Żadnej funkcji głównej, żadnego dołączania bibliotek. Bardzo proste, bo sam Python jest bardzo prostym językiem.</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Tworzenie zmiennych w Pythonie:</strong></p>
+            <p>Tak wygląda tworzenie i wyświetlanie zmiennych:</p>
+            <pre><code>
+                my_variable = 100
+                my_other_variable = "zmienna tekstowa"
+                print(my_variable)
+                print(my_other_variable)
+            </code></pre>
+            <p>Jak widać, przy tworzeniu zmiennej nie podajemy jej typu.</p>
+            <p>Dzieje się tak dlatego, że Python sam automatycznie tworzy zmienne w momencie pierwszego przypisania wartości. Nie ma więc potrzeby wcześniejszej deklaracji zmiennych, tak jak trzeba to robić na przykład w C.</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Brak średników:</strong></p>
+            <p>W Pythonie nie stawiamy średnika na końcu linijki.</p>
+            <pre><code>
+                my_variable = 100   # nie ma tu średnika
+                print(my_variable)  # tu też go nie ma
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Komentarze:</strong></p>
+            <p>W Pythonie komentarz jednolinijkowy tworzy się znakiem #</p>
+            <pre><code>
+                # To jest komentarz
+                print("To nie jest komentarz")
+                # To też jest komentarz
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Instrukcja warunkowa:</strong></p>
+            <p>W Pythonie instrukcję if-elseif-else zapisuje się następująco:</p>
+            <pre><code>
+                x = 10
+                y = 1000
+
+                if x == y:
+                    print("***********")
+                    print("x jest rowne y")
+                    print("***********")
+                elif x > y:
+                    print("x jest wieksze od y")
+                else:
+                    print("x jest mniejsze od y")
+            </code></pre>
+            <p>Zwróć uwagę na dwie rzeczy - brak klamer oraz wcięcia.</p>
+            <p>W Pythonie prawidłowe wcięcia są bardzo ważne, bo zastępują one nawiasy klamrowe używane na przykład w C.</p>
+            <p>Jeżeli w konsoli wyskoczy wam coś takiego, jak IndentationError, oznacza to, że wcięcia nie są wykonane prawidłowo.</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Pętla while:</strong></p>
+            <p>Tak zapisuje się pętlę while:</p>
+            <pre><code>
+                x = 10
+
+                while x &lt; 100:
+                    print(x)
+                    x += 1
+            </code></pre>
+            <p>W języku Python nie istnieje pętla do-while (jest tylko while).</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Pętla for:</strong></p>
+            <p>Tak wygląda przykładowa pętla for, która wykona się 10 razy:</p>
+            <pre><code>
+                for n in range(10):
+                    print("Ten tekst zostanie wypisany 10 razy.")
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <h1>Część 3 - Instalacja biblioteki Selenium</h1>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p>Czasami się zdarza, że nawet jeśli zainstalowaliście Selenium przez konsolę systemową [tak jak było na labach], to PyCharm nie będzie jej widział.</p>
+            <p>Wtedy trzeba na dole PyCharma zaznaczyć Terminal, a następnie wpisać komendę <code>pip3 install selenium</code> właśnie tam, czyli w terminalu wewnątrz programu.</p>
+            <a href="img/scr-2.png" class="light-link">
+                <img src="img/scr-2.png" class="img img-fluid"/>
+            </a>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p>Trzeba też pamiętać o pobraniu sterownika geckodriver - link do niego jest podany w zadaniu.</p>
+            <p>Trzeba mieć też na komputerze zainstalowaną przeglądarkę Firefox, inaczej skrypt nie zadziała.</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <h1>Część 4 - jak używać Selenium?</h1>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Potrzebne biblioteki:</strong></p>
+            <p>Najpierw zaimportujemy wszystkie obiekty, które będą nam potrzebne. Poniższe linijki trzeba wstawić na samej górze skryptu.</p>
+            <pre><code>
+                from selenium import webdriver
+                from selenium.webdriver.common.keys import Keys
+                from time import sleep
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Otwieranie i zamykanie przeglądarki:</strong></p>
+            <p>Taki oto skrypt spowoduje otwarcie przeglądarki, poczekanie 3 sekundy i następnie zamknięcie okna:</p>
+            <pre><code>
+                # (pamiętaj o zaimportowaniu bibliotek)
+                driver = webdriver.Firefox(executable_path="/bin/geckodriver")
+                sleep(3)
+                driver.quit()
+            </code></pre>
+            <p>Zamiast /bin/geckodriver trzeba wstawić ścieżkę do rozpakowanego sterownika, na przykład /home/uzytkownik/Pobrane/geckodriver lub C:/Users/Uzytkownik/geckodriver.exe</p>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Przechodzenie na inną stronę:</strong></p>
+            <p>Przechodzenie realizujemy metodą get obiektu Firefox. Tak wygląda przykładowy skrypt, który wchodzi na Google, czeka 3 sekundy, potem wchodzi na stronę PBS, a następnie po 3 sekundach zamyka przeglądarkę.</p>
+            <pre><code>
+                driver = webdriver.Firefox(executable_path="/bin/geckodriver")
+                driver.get("https://google.com")
+                sleep(3)
+                driver.get("https://pbs.edu.pl")
+                sleep(3)
+                driver.quit()
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Klikanie przycisków:</strong></p>
+            <p>Żeby kliknąć na stronie jakiś przycisk, trzeba go najpierw odnaleźć w kodzie HTML strony.</p>
+            <p>W tym celu najlepiej jest otworzyć tę stronę w przeglądarce, zrobić "Zbadaj element" i tam odszukać ten przycisk. Metody szukania elementów opiszę w następnym podrozdziale.</p>
+            <p>Tak wygląda skrypt, który wchodzi na stronę Politechniki i klika link (<code>&lt;a&gt;</code>) z napisem "ERASMUS+".</p>
+            <pre><code>
+                driver = webdriver.Firefox(executable_path="/bin/geckodriver")
+                driver.get("https://pbs.edu.pl")
+                sleep(3)  # dajemy skryptowi 3 sekundy na załadowanie strony
+                
+                # Znaczenie poniższej linijki:
+                # "do zmiennej erasmus_btn przypisz link, którego tekst to ERASMUS+"
+                erasmus_btn = driver.find_element_by_link_text("ERASMUS+")
+                erasmus_btn.click()  # metoda click() powoduje kliknięcie przycisku w przeglądarce   
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Szukanie (find) elementów HTML:</strong></p>
+            <p>W poprzednim podrozdziale użyłem metody find_element_by_link_text, żeby znaleźć link z napisem ERASMUS+. Poniżej znajdują się dwie inne metody find, które można użyć w swoim kodzie:</p>
+            <pre><code>
+                # Pozwala wyszukać element po jego atrybucie id
+                my_element = driver.find_element_by_id("id-elementu")
+                my_element.click()
+
+                # Jedna z najprzydatniejszych metod, pozwala wyszukiwać elementy korzystając ze składni CSS
+                my_element = driver.find_element_by_css_selector("#id-elementu .klasa a")
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Przykład użycia find_element_by_css_selector:</strong></p>
+            <p>Chcę napisać skrypt, który wchodzi na stronę Politechniki i klika w link do Facebooka znajdujący się w prawym górnym rogu.</p>
+            <p>Niestety link ten nie ma w sobie tekstu, tylko obrazek, więc nie mogę użyć find_element_by_link_text.</p>
+            <p>Link nie ma też przypisanego id, więc nie użyję find_element_by_id. Będę więc używał find_element_by_css_selector.</p>
+            <p>Najpierw wchodzę więc do przeglądarki i robię "Zbadaj element" na moim przycisku. Zauważam, że link znajduje się w divie o id social-bar. Układam więc selektor CSS <code>#social-bar a</code></p>
+            <p>Mając ułożony selektor CSS, przystępuję do napisania skryptu:</p>
+            <pre><code>
+                driver = webdriver.Firefox(executable_path="/bin/geckodriver")
+                driver.get("https://pbs.edu.pl")
+                sleep(3)  # dajemy skryptowi 3 sekundy na załadowanie strony
+
+                fb_btn = driver.find_element_by_css_selector("#social-bar a")
+                fb_btn.click()
+            </code></pre>
+        </div>
+
+        <div class="tut-section card card-body bg-light">
+            <p><strong>Wpisywanie tekstu:</strong></p>
+            <p>Chcę napisać skrypt, który wchodzi na https://szkolenia-online.pbs.edu.pl/login/index.php i wpisuje tam jakiś losowy login i hasło, a potem klika ENTER.</p>
+            <p>Po przebadaniu formularza przez "Zbadaj element" zauważyłem, że oba pola input mają przypisane id, więc można użyć find_element_by_id.</p>
+            <pre><code>
+                driver = webdriver.Firefox(executable_path="/bin/geckodriver")
+                driver.get("https://szkolenia-online.pbs.edu.pl/login/index.php")
+                sleep(3)  # dajemy skryptowi 3 sekundy na załadowanie strony
+
+                login_input = driver.find_element_by_id("username")
+                pass_input = driver.find_element_by_id("password")
+
+                login_input.send_keys("administrator")
+                pass_input.send_keys("haslo_admina")
+
+                # Keys.RETURN oznacza wciśnięcie przycisku ENTER
+                pass_input.send_keys(Keys.RETURN)
+            </code></pre>
+        </div>
+    </div>
+
+    <script>hljs.highlightAll();</script>
+    <script src="js/normalize-indents.js"></script>
+</body>
+</html> 
